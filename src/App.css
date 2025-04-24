@@ -1,0 +1,17 @@
+/* In your style.css or main CSS file */
+
+/* Define color variables in :root */
+:root {
+  --cricketGreen: #2b7a3b;   /* Dark Green */
+  --cricketRed: #f44336;     /* Red */
+  --lightBeige: #f5f5f5;     /* Light Beige */
+  --darkCharcoal: #333333;   /* Dark Charcoal */
+  --brightOrange: #ff5722;   /* Bright Orange */
+  --white: #ffffff;          /* White */
+  --gray: #888888;           /* Gray */
+}
+
+/* Example usage */
+ 
+
+/* You can use these variables anywhere in your CSS */
