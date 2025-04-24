@@ -35,7 +35,7 @@ const Home = () => {
                         className="w-full sm:w-[300px] p-6 bg-white text-black rounded-lg shadow-lg text-center cursor-pointer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => navigateTo('matches')}
+                        onClick={() => navigateTo('matchesMainPage')}
                     >
                         Matches
                     </motion.div>

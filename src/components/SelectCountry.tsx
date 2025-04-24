@@ -1,47 +1,48 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { get, set } from 'idb-keyval';
-import { countries } from '../lib/DummyData';
+import { countries } from '../lib/Countries';
 import Loading from './Loading';
-
 
 const SelectCountry = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchCountry = async () => {
       setLoading(true);
 
-      const savedCountry = await get('selectedCountry');
-      const contract = await get('contractSigned');
+      const savedCountry = localStorage.getItem('selectedCountry');
+      const contract = localStorage.getItem('contractSigned');
+      
       if (savedCountry && contract) {
         navigate("/Home");
       }
+
       setLoading(false);
     };
 
     fetchCountry();
-  }, []);
-if (loading) {
-  return <Loading />;
-}
+  }, [navigate]);
 
-  const handleSelect = async (country: { name: string; code: string }) => {
- 
-    await set('selectedCountry', country);
+  if (loading) {
+    return <Loading />;
+  }
+
+  const handleSelect = (country: { name: string; code: string }) => {
+    localStorage.setItem('selectedCountry', JSON.stringify(country)); // Store selected country in localStorage
     navigate("/contract");
   };
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col justify-center  items-center bg-green-950 text-white p-6"
+      className="min-h-screen flex flex-col justify-center items-center bg-green-950 text-white p-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
       <h1 className="text-3xl text-center font-bold mb-6">🌍 Select Your Country</h1>
 
-      <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
         {countries.map((c, i) => (
           <motion.div
             key={c.name}

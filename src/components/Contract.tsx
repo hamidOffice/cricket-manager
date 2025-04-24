@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { get, set } from 'idb-keyval';
 import { useNavigate } from 'react-router-dom';
 
 type Country = {
@@ -16,21 +15,21 @@ const Contract = () => {
     const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
     useEffect(() => {
-        const fetchCountry = async () => {
-            const savedCountry = await get('selectedCountry');
+        const fetchCountry = () => {
+            const savedCountry = localStorage.getItem('selectedCountry');
             if (savedCountry) {
-                setSelectedCountry(savedCountry);
+                setSelectedCountry(JSON.parse(savedCountry));
             }
         };
         fetchCountry();
     }, []);
 
-    const handleSignContract = async () => {
-        await set('contractSigned', true);
+    const handleSignContract = () => {
+        localStorage.setItem('contractSigned', 'true'); // Store contract signed status
         navigation('/Home');
     };
 
-    // Calculate manager's salary (e.g., 10% of the country's budget)
+    // Calculate manager's salary (e.g., 40% of the country's budget)
     const managerSalary = selectedCountry ? Math.floor(selectedCountry.budget * 0.4) : 0;
 
     return (
